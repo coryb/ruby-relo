@@ -8,8 +8,9 @@ ruby:
 	ls -l /Users/travis
 	ls -l $(CRAZYDIR)
 	mkdir -p $(CRAZYDIR)/.rbenv/versions/
-	ruby-build $(VERSION) $(CRAZYDIR)/.rbenv/versions/$(VERSION) --verbose
-	tar -C $(CRAZYDIR) -cyf $(TRAVIS_BUILD_DIR)/ruby-$(VERSION)-osx-$(OSXVER).tar.bz2
+	ruby-build $(VERSION) $(CRAZYDIR)/.rbenv/versions/rubytemp --verbose
+	cp ./relocate $(CRAZYDIR)/.rbenv/versions/rubytemp/.
+	tar -C $(CRAZYDIR)/.rbenv/versions/rubytemp -cyf $(TRAVIS_BUILD_DIR)/ruby-$(VERSION)-osx-$(OSXVER).tar.bz2 *
 
 osxver:
 	echo $(OSXVER)

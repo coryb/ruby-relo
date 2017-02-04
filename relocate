@@ -1,0 +1,8 @@
+#!/bin/sh
+NEWPATH=$(realpath $0)
+OLDPATH=/Users/ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1/.rbenv/versions/rubytemp
+
+let COUNTDIFF=${#OLDPATH} - ${#NEWPATH}
+export COUNTDIFF
+
+find $NEWPATH -type f | xargs perl -pi -e "undef \$/; 1 while s{$OLDPATH(.*?\\0)}{$NEWTPATH.\"\\0\"x$COUNTDIFF}sge"
