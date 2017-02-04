@@ -11,7 +11,7 @@ ruby:
 	ruby-build $(VERSION) $(CRAZYDIR)/.rbenv/versions/rubytemp --verbose
 	cp ./relocate $(CRAZYDIR)/.rbenv/versions/rubytemp/.
 	cd $(CRAZYDIR)/.rbenv/versions/rubytemp && tar -cyf $(TRAVIS_BUILD_DIR)/ruby-$(VERSION)-osx-$(OSXVER).tar.bz2 *
-
+	curl -T $(TRAVIS_BUILD_DIR)/ruby-$(VERSION)-osx-$(OSXVER).tar.bz2 -ucoryb:$(BINTRAY_API_KEY) https://api.bintray.com/content/coryb/ruby-relo/osx/$(OSXVER)/ruby-$(VERSION)-osx-$(OSXVER).tar.bz2
 
 osxver:
 	echo $(OSXVER)
