@@ -1,8 +1,11 @@
 #!/bin/sh
-NEWPATH=$(realpath $0)
+NEWPATH=$(dirname $(realpath $0))
 OLDPATH=/Users/ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1/.rbenv/versions/rubytemp
 
-let COUNTDIFF=${#OLDPATH} - ${#NEWPATH}
+let COUNTDIFF=${#OLDPATH}-${#NEWPATH}
 export COUNTDIFF
 
-find $NEWPATH -type f | xargs perl -pi -e "undef \$/; 1 while s{$OLDPATH(.*?\\0)}{$NEWTPATH.\"\\0\"x$COUNTDIFF}sge"
+#xargs perl -pi -e "undef $/; 1 while s{vagrant123vagrant123vagrant123vagrant123vagrant123vagrant123vagrant123vagrant123(.*?\0)}{\"$USER\".\$1.\"\0\"x(80-$NAMELEN)}sge"
+
+find $NEWPATH/{bin,include,lib,share} -type f | xargs perl -pi -e "undef \$/; 1 while s{$OLDPATH(.*?\0)}{\"$NEWPATH\".\$1.\"\0\"x$COUNTDIFF}sge"
+find $NEWPATH/{bin,include,lib,share} -type f | xargs perl -pi -e "undef \$/; 1 while s{$OLDPATH}{$NEWPATH}sg"
