@@ -1,12 +1,15 @@
-matrix:
-  include:
-      # osx 10.11
-    - os: osx
-      osx_image: xcode7.3
-      # osx 10.11
-    - os: osx
-      osx_image: xcode8.2
+# matrix:
+#   include:
+#       # osx 10.11
+#     - os: osx
+#       osx_image: xcode7.3
+#       # osx 10.11
+#     - os: osx
+#       osx_image: xcode8.2
 
+# osx 10.11
+os: osx
+osx_image: xcode7.3
 sudo: required
 
 before_install:
