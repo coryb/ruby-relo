@@ -5,7 +5,15 @@ OLDPATH=/Users/ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1
 let COUNTDIFF=${#OLDPATH}-${#NEWPATH}
 export COUNTDIFF
 
-#xargs perl -pi -e "undef $/; 1 while s{vagrant123vagrant123vagrant123vagrant123vagrant123vagrant123vagrant123vagrant123(.*?\0)}{\"$USER\".\$1.\"\0\"x(80-$NAMELEN)}sge"
+mimetypes=$(mktemp -t mimetypes.XXXXXX)
+function cleanup {
+    local rv=$?
+    rm $mimetypes
+    exit $rv
+}
+trap cleanup INT TERM EXIT
 
-find $NEWPATH/{bin,include,lib,share} -type f | xargs perl -pi -e "undef \$/; 1 while s{$OLDPATH(.*?\0)}{\"$NEWPATH\".\$1.\"\0\"x$COUNTDIFF}sge"
-find $NEWPATH/{bin,include,lib,share} -type f | xargs perl -pi -e "undef \$/; 1 while s{$OLDPATH}{$NEWPATH}sg"
+find $NEWPATH/{bin,include,lib,share} -type f | xargs file --mime > $mimetypes
+
+grep binary $mimetypes | cut -d: -f1 | xargs perl -pi -e "undef \$/; 1 while s{$OLDPATH}{\"$NEWPATH\".\"/.\"x($COUNTDIFF/2).\"/\"x($COUNTDIFF%2)}sge"
+grep text $mimetypes | cut -d: -f1| xargs perl -pi -e "undef \$/; 1 while s{$OLDPATH}{$NEWPATH}sg"
