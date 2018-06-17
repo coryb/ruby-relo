@@ -2,7 +2,7 @@ VERSION=2.4.0
 CRAZYDIR=/Users/ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1
 OSXVER=$(subst $(noop) ,.,$(wordlist 1, 2, $(subst ., ,$(shell sw_vers -productVersion))))
 ruby:
-	xcode-select --install || true # https://github.com/rbenv/ruby-build/issues/1133
+	./install-xcode.sh
 	sudo ln -s /Users/travis $(CRAZYDIR)
 	whoami
 	pwd
