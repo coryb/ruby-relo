@@ -2,7 +2,6 @@ VERSION=2.4.0
 CRAZYDIR=/Users/ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1
 OSXVER=$(subst $(noop) ,.,$(wordlist 1, 2, $(subst ., ,$(shell sw_vers -productVersion))))
 ruby:
-	./install-xcode.sh
 	sudo ln -s /Users/travis $(CRAZYDIR)
 	whoami
 	pwd
