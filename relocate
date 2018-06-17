@@ -2,18 +2,11 @@
 NEWPATH=$(dirname $(realpath $0))
 OLDPATH=/Users/ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1/.rbenv/versions/rubytemp
 
-let COUNTDIFF=${#OLDPATH}-${#NEWPATH}
-export COUNTDIFF
+let COUNTDIFF=(${#OLDPATH}-${#NEWPATH})-1
 
-mimetypes=$(mktemp -t mimetypes.XXXXXX)
-function cleanup {
-    local rv=$?
-    rm $mimetypes
-    exit $rv
-}
-trap cleanup INT TERM EXIT
+HACKDIR=$(printf "%-${COUNTDIFF}s" ".")
+HACKDIR=${HACK// /.}
 
-find $NEWPATH/{bin,include,lib,share} -type f | xargs file --mime > $mimetypes
+ln -sf . "$HACKDIR"
 
-grep binary $mimetypes | cut -d: -f1 | xargs perl -pi -e "undef \$/; 1 while s{$OLDPATH}{\"$NEWPATH\".\"/.\"x($COUNTDIFF/2).\"/\"x($COUNTDIFF%2)}sge"
-grep text $mimetypes | cut -d: -f1| xargs perl -pi -e "undef \$/; 1 while s{$OLDPATH}{$NEWPATH}sg"
+find bin include lib share -type f | xargs perl -pi -e "s{$OLDPATH}{$NEWPATH/$HACKDIR}sg"
