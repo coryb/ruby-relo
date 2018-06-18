@@ -15,7 +15,6 @@ export HOME=${CRAZYDIR}
 cd $HOME
 
 mv $HOME/.rvm{,.bak}
-mv -f $HOME/.rvmrc{,.bak}
 
 curl -sSL https://get.rvm.io | bash -s stable
 
