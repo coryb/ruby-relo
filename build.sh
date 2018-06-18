@@ -14,14 +14,9 @@ sudo ln -s $HOME ${CRAZYDIR}
 export HOME=${CRAZYDIR}
 cd $HOME
 
-mv $HOME/.rvm{,.bak}
-if [[ -f $HOME/.rvmrc ]]; then
-    mv $HOME/.rvmrc{,.bak}
-fi
-
 curl -sSL https://get.rvm.io | bash -s stable
 
-$HOME/.rvm/bin/rvm install ${VERSION}
+$HOME/.rvm/bin/rvm install ${VERSION} --disable-binary
 
 cp ${CURDIR}/relocate ${CRAZYDIR}/.rvm/rubies/ruby-${VERSION}
 chmod 755 ${CRAZYDIR}/.rvm/rubies/ruby-${VERSION}/relocate
