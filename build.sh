@@ -2,6 +2,7 @@
 set -eux
 
 VERSION=2.4.0
+CURDIR=$(pwd)
 
 CRAZYDIR=/Users/ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1ruby1
 
@@ -13,11 +14,14 @@ sudo ln -s $HOME ${CRAZYDIR}
 export HOME=${CRAZYDIR}
 cd $HOME
 
+mv $HOME/.rvm{,.bak}
+mv -f $HOME/.rvmrc{,.bak}
+
 curl -sSL https://get.rvm.io | bash -s stable
 
 $HOME/.rvm/bin/rvm install ${VERSION}
 
-cp ./relocate ${CRAZYDIR}/.rvm/rubies/ruby-${VERSION}
+cp ${CURDIR}/relocate ${CRAZYDIR}/.rvm/rubies/ruby-${VERSION}
 chmod 755 ${CRAZYDIR}/.rvm/rubies/ruby-${VERSION}/relocate
 
 cd ${CRAZYDIR}/.rvm/rubies/ruby-${VERSION} && tar -cyf ${TRAVIS_BUILD_DIR}/ruby-${VERSION}-osx-${OSXVER}.tar.bz2 *
